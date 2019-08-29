@@ -1,0 +1,882 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{1.Preprocessing}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{QSR Data Challenge}\label{qsr-data-challenge}
+
+    \subsection{Preprocessing}\label{preprocessing}
+
+    Imports
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{datetime}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+\end{Verbatim}
+
+
+    Get the current working directory:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}parent\PYZus{}dir}\PY{p}{(}\PY{n}{directory}\PY{p}{)}\PY{p}{:}
+            \PY{k+kn}{import} \PY{n+nn}{os}
+            \PY{k}{return} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{dirname}\PY{p}{(}\PY{n}{directory}\PY{p}{)}
+        
+        \PY{n}{current\PYZus{}dirs\PYZus{}parent} \PY{o}{=} \PY{n}{get\PYZus{}parent\PYZus{}dir}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{dataraw\PYZus{}dir}\PY{o}{=}\PY{n}{current\PYZus{}dirs\PYZus{}parent}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/01.Data/Raw/}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{preproc\PYZus{}dir}\PY{o}{=}\PY{n}{current\PYZus{}dirs\PYZus{}parent}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/01.Data/Preprocessing/}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    Load the data:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{data\PYZus{}a}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{n}{dataraw\PYZus{}dir}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{processminer\PYZhy{}rare\PYZhy{}event\PYZhy{}detection\PYZhy{}data\PYZhy{}augmentation.xlsx}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                             \PY{n}{sheet\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZhy{}(a)\PYZhy{}raw\PYZhy{}data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{data\PYZus{}b}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{n}{dataraw\PYZus{}dir}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{processminer\PYZhy{}rare\PYZhy{}event\PYZhy{}detection\PYZhy{}data\PYZhy{}augmentation.xlsx}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                             \PY{n}{sheet\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZhy{}(b)\PYZhy{}4\PYZhy{}min\PYZhy{}ahead\PYZhy{}conse\PYZhy{}rmvd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{data\PYZus{}b}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZhy{}4min\PYZhy{}ahead}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}lead2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    Check first lines:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{data\PYZus{}a}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}                  time  y        x1        x2         x3          x4  \textbackslash{}
+        0 1999-05-01 00:00:00  0  0.360183  8.916353  10.298991  332.475535   
+        1 1999-05-01 00:02:00  0  0.459238  8.970286  10.376388  335.208506   
+        2 1999-05-01 00:04:00  0  0.347366  8.831394  10.041600  333.105845   
+        3 1999-05-01 00:06:00  0  0.285108  8.753854  10.371135  332.139414   
+        4 1999-05-01 00:08:00  0  0.249096  8.762860  10.061597  334.245188   
+        
+                   x5          x6        x7        x8  {\ldots}          x52          x53  \textbackslash{}
+        0  125.067515  255.941905 -3.373756 -3.413735  {\ldots}  3578.032176  3645.031931   
+        1  125.057612  257.853709 -3.373756 -3.413735  {\ldots}  3578.036326  3645.041453   
+        2  125.047709  258.775156 -3.363685 -3.413735  {\ldots}  3578.040720  3645.050974   
+        3  125.038203  258.094187 -3.372413 -3.413735  {\ldots}  3578.045115  3645.060252   
+        4  125.031031  259.105875 -3.373756 -3.413735  {\ldots}  3578.049509  3645.069773   
+        
+                x54          x55         x56         x57       x58        x59  \textbackslash{}
+        0  4.149806  1990.071848  283.751170  611.968211 -3.620528  97.959956   
+        1  4.149061  1982.248728  287.995799  611.177744 -3.620436  98.097239   
+        2  4.148316  1980.478220  292.240397  612.032298 -3.620343  98.847277   
+        3  4.147571  1978.707713  286.908183  612.480906 -3.620251  99.561617   
+        4  4.146826  1976.937205  287.142985  612.096384 -3.620195  98.417231   
+        
+                x60  x61  
+        0 -3.334341    0  
+        1 -3.334334    0  
+        2 -3.334327    0  
+        3 -3.334320    0  
+        4 -3.334312    0  
+        
+        [5 rows x 63 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{data\PYZus{}b}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}                  time  y\_lead2        x1        x2         x3          x4  \textbackslash{}
+        0 1999-05-01 00:00:00        0  0.360183  8.916353  10.298991  332.475535   
+        1 1999-05-01 00:02:00        0  0.459238  8.970286  10.376388  335.208506   
+        2 1999-05-01 00:04:00        0  0.347366  8.831394  10.041600  333.105845   
+        3 1999-05-01 00:06:00        0  0.285108  8.753854  10.371135  332.139414   
+        4 1999-05-01 00:08:00        0  0.249096  8.762860  10.061597  334.245188   
+        
+                   x5          x6        x7        x8  {\ldots}          x52          x53  \textbackslash{}
+        0  125.067515  255.941905 -3.373756 -3.413735  {\ldots}  3578.032176  3645.031931   
+        1  125.057612  257.853709 -3.373756 -3.413735  {\ldots}  3578.036326  3645.041453   
+        2  125.047709  258.775156 -3.363685 -3.413735  {\ldots}  3578.040720  3645.050974   
+        3  125.038203  258.094187 -3.372413 -3.413735  {\ldots}  3578.045115  3645.060252   
+        4  125.031031  259.105875 -3.373756 -3.413735  {\ldots}  3578.049509  3645.069773   
+        
+                x54          x55         x56         x57       x58        x59  \textbackslash{}
+        0  4.149806  1990.071848  283.751170  611.968211 -3.620528  97.959956   
+        1  4.149061  1982.248728  287.995799  611.177744 -3.620436  98.097239   
+        2  4.148316  1980.478220  292.240397  612.032298 -3.620343  98.847277   
+        3  4.147571  1978.707713  286.908183  612.480906 -3.620251  99.561617   
+        4  4.146826  1976.937205  287.142985  612.096384 -3.620195  98.417231   
+        
+                x60  x61  
+        0 -3.334341    0  
+        1 -3.334334    0  
+        2 -3.334327    0  
+        3 -3.334320    0  
+        4 -3.334312    0  
+        
+        [5 rows x 63 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{data\PYZus{}b}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}lead2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} 124
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{data\PYZus{}b}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} (18398, 63)
+\end{Verbatim}
+            
+    Define functions for data transformations:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}Add EventId}
+        \PY{k}{def} \PY{n+nf}{event\PYZus{}id}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{yname}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dfout}\PY{o}{=}\PY{n}{df}
+            \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EventID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{dfout}\PY{p}{[}\PY{n}{yname}\PY{p}{]}\PY{o}{.}\PY{n}{shift}\PY{p}{(}\PY{n}{periods}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{fill\PYZus{}value}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EventID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EventID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}    
+            \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Cycles since last failure}
+        \PY{k}{def} \PY{n+nf}{add\PYZus{}cycles}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dfout}\PY{o}{=}\PY{n}{df}
+            \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cycle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+            \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cycle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{dfout}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EventID}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cycle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{p}{)}
+            \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+            
+        
+        \PY{c+c1}{\PYZsh{}Lagged difference. }
+        \PY{c+c1}{\PYZsh{}\PYZsh{}i\PYZus{}list: variable number as list, assuming are all named x}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}n\PYZus{}list: number of lag periods as list}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}df: pandas dataframe to add variables}
+        \PY{k}{def} \PY{n+nf}{lagdif\PYZus{}xi\PYZus{}n}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{i\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{n}{n\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dfout}\PY{o}{=}\PY{n}{df}
+            \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{n\PYZus{}list}\PY{p}{:}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{i\PYZus{}list}\PY{p}{:}
+                    \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}df\PYZus{}l}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{]}\PY{o}{=}\PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{n}{periods}\PY{o}{=}\PY{n}{n}\PY{p}{)}
+            
+            \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Second order Lagged difference. }
+        \PY{c+c1}{\PYZsh{}\PYZsh{}i: variable number as list, assuming are all named x }
+        \PY{c+c1}{\PYZsh{}\PYZsh{}n: number of lag periods as list}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}df: pandas dataframe to add variables}
+        
+        \PY{k}{def} \PY{n+nf}{lagdif2\PYZus{}xi\PYZus{}n}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{i\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{n}{n\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dfout}\PY{o}{=}\PY{n}{df}
+            \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{n\PYZus{}list}\PY{p}{:}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{i\PYZus{}list}\PY{p}{:}
+                    \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}df2\PYZus{}l}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{]}\PY{o}{=}\PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{n}{periods}\PY{o}{=}\PY{n}{n}\PY{p}{)}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{n}{periods}\PY{o}{=}\PY{n}{n}\PY{p}{)}
+                    
+            \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+                    
+        
+        \PY{c+c1}{\PYZsh{}Lagged percentual difference. }
+        \PY{c+c1}{\PYZsh{}\PYZsh{}i\PYZus{}list: variable number as list, assuming are all named x}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}n\PYZus{}list: number of lag periods as list}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}df: pandas dataframe to add variables}
+        
+        \PY{k}{def} \PY{n+nf}{perc\PYZus{}lagdif\PYZus{}xi\PYZus{}n}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{i\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{n}{n\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dfout}\PY{o}{=}\PY{n}{df}
+            \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{n\PYZus{}list}\PY{p}{:}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{i\PYZus{}list}\PY{p}{:}
+                    \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}pdf\PYZus{}l}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{]}\PY{o}{=}\PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{pct\PYZus{}change}\PY{p}{(}\PY{n}{periods}\PY{o}{=}\PY{n}{n}\PY{p}{)}
+            
+            \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Lagged absolute percentual difference}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}i\PYZus{}list: variable number as list, assuming are all named x}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}n\PYZus{}list: number of lag periods as list}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}df: pandas dataframe to add variables}
+        
+        \PY{k}{def} \PY{n+nf}{abs\PYZus{}perc\PYZus{}lagdif\PYZus{}xi\PYZus{}n}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{i\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{n}{n\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dfout}\PY{o}{=}\PY{n}{df}
+            \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{n\PYZus{}list}\PY{p}{:}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{i\PYZus{}list}\PY{p}{:}
+                    \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}apdf\PYZus{}l}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{]}\PY{o}{=}\PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{pct\PYZus{}change}\PY{p}{(}\PY{n}{periods}\PY{o}{=}\PY{n}{n}\PY{p}{)}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{p}{)}
+                    
+            \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Exponential moving average percentual difference}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}i\PYZus{}list: variable number as list, assuming are all named x}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}n\PYZus{}list: number of lag periods as list}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}alpha\PYZus{}list: smoothing parameter as list}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}df: pandas dataframe to add variables}
+        
+        \PY{k}{def} \PY{n+nf}{EMW\PYZus{}perc\PYZus{}lagdif\PYZus{}xi\PYZus{}n}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{i\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{n}{n\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{n}{alpha\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{0.25}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mf}{0.75}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dfout}\PY{o}{=}\PY{n}{df}
+            \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n}{alpha\PYZus{}list}\PY{p}{:}
+                \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{n\PYZus{}list}\PY{p}{:}        
+                    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{i\PYZus{}list}\PY{p}{:}
+                        \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}emwpdf\PYZus{}a}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}l}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{]}\PY{o}{=}\PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{pct\PYZus{}change}\PY{p}{(}\PY{n}{periods}\PY{o}{=}\PY{n}{n}\PY{p}{)}\PY{o}{.}\PY{n}{ewm}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{n}{a}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+                    
+            \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Lagged log percentual difference }
+        \PY{c+c1}{\PYZsh{}\PYZsh{}i\PYZus{}list: variable number as list, assuming are all named x}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}n\PYZus{}list: number of lag periods as list}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}df: pandas dataframe to add variables}
+        
+        \PY{k}{def} \PY{n+nf}{log\PYZus{}perc\PYZus{}lagdif\PYZus{}xi\PYZus{}n}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{i\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{n}{n\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dfout}\PY{o}{=}\PY{n}{df}
+            \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{n\PYZus{}list}\PY{p}{:}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{i\PYZus{}list}\PY{p}{:}
+                    \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}logpdf\PYZus{}l}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{pct\PYZus{}change}\PY{p}{(}\PY{n}{periods}\PY{o}{=}\PY{n}{n}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+            
+            \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Exponential moving average of log percentual difference}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}i\PYZus{}list: variable number as list, assuming are all named x}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}n\PYZus{}list: number of lag periods as list}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}alpha\PYZus{}list: smoothing parameter as list}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}df: pandas dataframe to add variables}
+        
+        \PY{k}{def} \PY{n+nf}{EMW\PYZus{}log\PYZus{}perc\PYZus{}lagdif\PYZus{}xi\PYZus{}n}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{i\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{n}{n\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{n}{alpha\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{0.25}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mf}{0.75}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dfout}\PY{o}{=}\PY{n}{df}
+            \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n}{alpha\PYZus{}list}\PY{p}{:}
+                \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{n\PYZus{}list}\PY{p}{:}        
+                    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{i\PYZus{}list}\PY{p}{:}
+                        \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}emwpdf\PYZus{}a}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}l}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{]}\PY{o}{=}\PY{n}{\PYZus{}}
+                        \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{pct\PYZus{}change}\PY{p}{(}\PY{n}{periods}\PY{o}{=}\PY{n}{n}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{ewm}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{n}{a}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+                    
+            \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+\end{Verbatim}
+
+
+    Date functions:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}Extracting:}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}xday}
+        \PY{k}{def} \PY{n+nf}{add\PYZus{}day}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dfout}\PY{o}{=}\PY{n}{df}    
+            \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xday}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{day}
+            \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}xhour}
+        \PY{k}{def} \PY{n+nf}{add\PYZus{}hour}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dfout}\PY{o}{=}\PY{n}{df}    
+            \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xhour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{hour}
+            \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}xminute}
+        \PY{k}{def} \PY{n+nf}{add\PYZus{}minute}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dfout}\PY{o}{=}\PY{n}{df}    
+            \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xminute}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{minute}
+            \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}Month}
+        \PY{k}{def} \PY{n+nf}{add\PYZus{}month}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dfout}\PY{o}{=}\PY{n}{df}    
+            \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xmonth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{month}
+            \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Turn into dummies}
+        \PY{k}{def} \PY{n+nf}{date\PYZus{}dummies}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{varlist}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xday}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xmonth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xhour}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xminute}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dfout}\PY{o}{=}\PY{n}{df}
+            \PY{k}{for} \PY{n}{var} \PY{o+ow}{in} \PY{n}{varlist}\PY{p}{:}
+                \PY{n}{dfout}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{dfout}\PY{p}{,}\PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{dfout}\PY{p}{[}\PY{n}{var}\PY{p}{]}\PY{p}{,}\PY{n}{prefix}\PY{o}{=}\PY{n}{var}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Time difference from each row in minutes... minus 2 minutes}
+        \PY{k}{def} \PY{n+nf}{time\PYZus{}diff}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dfout}\PY{o}{=}\PY{n}{df}
+            \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xtimedif}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{n}{periods}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{timedelta64}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}
+            \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Dummy if there was a skip}
+        \PY{k}{def} \PY{n+nf}{add\PYZus{}skip}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dfout}\PY{o}{=}\PY{n}{df}
+            \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xskip}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1} \PY{k}{if} \PY{n}{x} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0} \PY{k}{else} \PY{l+m+mi}{0} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xtimedif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+            \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{}SkipNumber}
+        \PY{k}{def} \PY{n+nf}{add\PYZus{}skipnumber}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dfout}\PY{o}{=}\PY{n}{df}
+            \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xskipid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xskip}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}
+            \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Time since last skip}
+        \PY{k}{def} \PY{n+nf}{add\PYZus{}sinceskip}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dfout}\PY{o}{=}\PY{n}{df}
+            \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xsinceskip}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+            \PY{n}{dfout}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xsinceskip}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{dfout}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xskipid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xsinceskip}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{p}{)}
+            \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+\end{Verbatim}
+
+
+    Separate training and test data: 10\% at the end for testing
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{train\PYZus{}b}\PY{p}{,} \PY{n}{test\PYZus{}b} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{data\PYZus{}b}\PY{p}{,}\PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{train\PYZus{}b}\PY{o}{=}\PY{n}{train\PYZus{}b}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{test\PYZus{}b}\PY{o}{=}\PY{n}{test\PYZus{}b}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{first\PYZus{}test\PYZus{}date}\PY{o}{=}\PY{n}{test\PYZus{}b}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}Data a should be split according to the date on data\PYZus{}b test set:}
+         \PY{n}{train\PYZus{}a} \PY{o}{=} \PY{n}{data\PYZus{}a}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{data\PYZus{}a}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{first\PYZus{}test\PYZus{}date}\PY{p}{]}
+         \PY{n}{test\PYZus{}a} \PY{o}{=} \PY{n}{data\PYZus{}a}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{data\PYZus{}a}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{first\PYZus{}test\PYZus{}date}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{train\PYZus{}b}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}                      time  y\_lead2        x1         x2         x3  \textbackslash{}
+         16553 1999-05-26 09:20:00        0  0.012196  13.847258  14.340477   
+         16554 1999-05-26 09:22:00        0 -0.053825  14.080695  14.310500   
+         16555 1999-05-26 09:24:00        0 -0.004109  13.927493  14.287610   
+         16556 1999-05-26 09:26:00        0 -0.089955  13.926491  14.413989   
+         16557 1999-05-26 09:28:00        0 -0.067187  14.086188  14.287610   
+         
+                        x4          x5          x6        x7        x8  {\ldots}  \textbackslash{}
+         16553  348.620646  125.267832  322.297190 -3.543744 -3.332518  {\ldots}   
+         16554  349.257822  125.282389  322.007456 -3.543744 -3.323706  {\ldots}   
+         16555  349.894999  125.296931  323.346201 -3.543744 -3.323706  {\ldots}   
+         16556  348.582194  125.311488  321.469859 -3.533673 -3.323706  {\ldots}   
+         16557  352.530497  125.326029  321.940775 -3.533673 -3.323706  {\ldots}   
+         
+                        x52          x53        x54          x55         x56  \textbackslash{}
+         16553  3566.251414  3642.884959  12.191752  2043.060496  266.791575   
+         16554  3566.251414  3642.889353  12.191752  2033.241160  267.300608   
+         16555  3566.251414  3642.893748  12.191752  2046.334177  267.809611   
+         16556  3566.251414  3642.897898  12.191752  2048.477488  268.318644   
+         16557  3566.251414  3642.902293  12.191752  2042.669871  268.827647   
+         
+                       x57       x58        x59       x60  x61  
+         16553  607.024180 -3.645790  98.285967 -3.343567    0  
+         16554  607.024180 -3.645968  97.557215 -3.343562    0  
+         16555  607.149302 -3.645648  97.170680 -3.343556    0  
+         16556  607.024180 -3.645079  97.739420 -3.343551    0  
+         16557  607.523631 -3.644556  98.287257 -3.343546    0  
+         
+         [5 rows x 63 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{test\PYZus{}b}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}                      time  y\_lead2        x1         x2         x3  \textbackslash{}
+         16558 1999-05-26 09:30:00        0 -0.031064  14.012333  14.305617   
+         16559 1999-05-26 09:32:00        0 -0.085997  14.098046  14.075781   
+         16560 1999-05-26 09:34:00        0 -0.094949  14.188851  14.384268   
+         16561 1999-05-26 09:36:00        0 -0.055040  14.141621  14.379366   
+         16562 1999-05-26 09:38:00        0 -0.074400  14.156380  14.107552   
+         
+                        x4          x5          x6        x7        x8  {\ldots}  \textbackslash{}
+         16558  350.172129  125.340586  320.883250 -3.533673 -3.323706  {\ldots}   
+         16559  349.319956  125.355128  321.094920 -3.533673 -3.323706  {\ldots}   
+         16560  348.635142  125.369685  321.306620 -3.533673 -3.323706  {\ldots}   
+         16561  347.950358  125.384226  322.582530 -3.533673 -3.323706  {\ldots}   
+         16562  347.265543  125.398783  321.980265 -3.533673 -3.323706  {\ldots}   
+         
+                        x52          x53        x54          x55         x56  \textbackslash{}
+         16558  3566.251414  3642.906687  12.191752  2053.524851  269.336649   
+         16559  3566.251414  3642.911082  12.191752  2038.584177  269.582255   
+         16560  3566.251414  3642.915476  12.191752  2047.170603  269.432688   
+         16561  3566.251414  3642.919871  12.191752  2034.140330  269.283152   
+         16562  3566.251414  3642.924021  12.191752  2035.511790  269.133585   
+         
+                       x57       x58        x59       x60  x61  
+         16558  607.634592 -3.644594  97.163676 -3.343541    0  
+         16559  608.275462 -3.644631  97.297251 -3.343535    0  
+         16560  606.383311 -3.644669  98.016390 -3.343530    0  
+         16561  607.634592 -3.644707  97.774645 -3.343525    0  
+         16562  607.024180 -3.644745  97.175883 -3.343519    0  
+         
+         [5 rows x 63 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{train\PYZus{}b}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}lead2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} 113
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{test\PYZus{}b}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}lead2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} 11
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{train\PYZus{}b}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} (16558, 63)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{test\PYZus{}b}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} (1840, 63)
+\end{Verbatim}
+            
+    Pipeline to add new variables:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k}{def} \PY{n+nf}{preprocessing\PYZus{}pipeline}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+             \PY{n}{dfout}\PY{o}{=}\PY{n}{df}
+             \PY{n}{dfout}\PY{o}{=}\PY{n}{lagdif\PYZus{}xi\PYZus{}n}\PY{p}{(}\PY{n}{df}\PY{o}{=}\PY{n}{dfout}\PY{p}{,}\PY{n}{i\PYZus{}list}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{62}\PY{p}{)}\PY{p}{,}\PY{n}{n\PYZus{}list}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+             \PY{n}{dfout}\PY{o}{=}\PY{n}{perc\PYZus{}lagdif\PYZus{}xi\PYZus{}n}\PY{p}{(}\PY{n}{df}\PY{o}{=}\PY{n}{dfout}\PY{p}{,}\PY{n}{i\PYZus{}list}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{62}\PY{p}{)}\PY{p}{,}\PY{n}{n\PYZus{}list}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+             \PY{n}{dfout}\PY{o}{=}\PY{n}{abs\PYZus{}perc\PYZus{}lagdif\PYZus{}xi\PYZus{}n}\PY{p}{(}\PY{n}{df}\PY{o}{=}\PY{n}{dfout}\PY{p}{,}\PY{n}{i\PYZus{}list}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{62}\PY{p}{)}\PY{p}{,}\PY{n}{n\PYZus{}list}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+             \PY{n}{dfout}\PY{o}{=}\PY{n}{EMW\PYZus{}perc\PYZus{}lagdif\PYZus{}xi\PYZus{}n}\PY{p}{(}\PY{n}{df}\PY{o}{=}\PY{n}{dfout}\PY{p}{,}\PY{n}{i\PYZus{}list}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{61}\PY{p}{)}\PY{p}{,}\PY{n}{n\PYZus{}list}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,}\PY{n}{alpha\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mf}{0.95}\PY{p}{]}\PY{p}{)}
+             \PY{n}{dfout}\PY{o}{=}\PY{n}{lagdif2\PYZus{}xi\PYZus{}n}\PY{p}{(}\PY{n}{df}\PY{o}{=}\PY{n}{dfout}\PY{p}{,}\PY{n}{i\PYZus{}list}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{62}\PY{p}{)}\PY{p}{,}\PY{n}{n\PYZus{}list}\PY{o}{=}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}dfout=log\PYZus{}perc\PYZus{}lagdif\PYZus{}xi\PYZus{}n(df=dfout,i\PYZus{}list=range(1,61),n\PYZus{}list=range(4))}
+             \PY{c+c1}{\PYZsh{}dfout=EMW\PYZus{}log\PYZus{}perc\PYZus{}lagdif\PYZus{}xi\PYZus{}n(df=dfout,i\PYZus{}list=range(1,61),n\PYZus{}list=range(4),alpha\PYZus{}list=[0.1,0.5,0.95])}
+         
+             \PY{n}{dfout}\PY{o}{=}\PY{n}{add\PYZus{}minute}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+             \PY{n}{dfout}\PY{o}{=}\PY{n}{add\PYZus{}hour}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+             \PY{n}{dfout}\PY{o}{=}\PY{n}{add\PYZus{}day}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+             \PY{n}{dfout}\PY{o}{=}\PY{n}{add\PYZus{}month}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+         
+             \PY{n}{dfout}\PY{o}{=}\PY{n}{time\PYZus{}diff}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+             \PY{n}{dfout}\PY{o}{=}\PY{n}{add\PYZus{}skip}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+             \PY{n}{dfout}\PY{o}{=}\PY{n}{add\PYZus{}skipnumber}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+             \PY{n}{dfout}\PY{o}{=}\PY{n}{add\PYZus{}sinceskip}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+         
+             \PY{k}{return}\PY{p}{(}\PY{n}{dfout}\PY{p}{)}
+\end{Verbatim}
+
+
+    Pipeline for data\_b:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{train\PYZus{}b\PYZus{}preproc}\PY{o}{=}\PY{k+kc}{None}
+         \PY{n}{test\PYZus{}b\PYZus{}preproc}\PY{o}{=}\PY{k+kc}{None}
+         \PY{n}{train\PYZus{}b\PYZus{}preproc}\PY{o}{=}\PY{n}{preprocessing\PYZus{}pipeline}\PY{p}{(}\PY{n}{train\PYZus{}b}\PY{p}{)}
+         \PY{n}{test\PYZus{}b\PYZus{}preproc}\PY{o}{=}\PY{n}{preprocessing\PYZus{}pipeline}\PY{p}{(}\PY{n}{test\PYZus{}b}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{train\PYZus{}b\PYZus{}preproc}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:}                      time  y\_lead2        x1         x2         x3  \textbackslash{}
+         16553 1999-05-26 09:20:00        0  0.012196  13.847258  14.340477   
+         16554 1999-05-26 09:22:00        0 -0.053825  14.080695  14.310500   
+         16555 1999-05-26 09:24:00        0 -0.004109  13.927493  14.287610   
+         16556 1999-05-26 09:26:00        0 -0.089955  13.926491  14.413989   
+         16557 1999-05-26 09:28:00        0 -0.067187  14.086188  14.287610   
+         
+                        x4          x5          x6        x7        x8  {\ldots}  \textbackslash{}
+         16553  348.620646  125.267832  322.297190 -3.543744 -3.332518  {\ldots}   
+         16554  349.257822  125.282389  322.007456 -3.543744 -3.323706  {\ldots}   
+         16555  349.894999  125.296931  323.346201 -3.543744 -3.323706  {\ldots}   
+         16556  348.582194  125.311488  321.469859 -3.533673 -3.323706  {\ldots}   
+         16557  352.530497  125.326029  321.940775 -3.533673 -3.323706  {\ldots}   
+         
+                x60\_df2\_l3  x61\_df2\_l3  xminute  xhour  xday  xmonth  xtimedif  xskip  \textbackslash{}
+         16553    0.000000         0.0       20      9    26       5       0.0      0   
+         16554    0.000001         0.0       22      9    26       5       0.0      0   
+         16555    0.000000         0.0       24      9    26       5       0.0      0   
+         16556    0.000000         0.0       26      9    26       5       0.0      0   
+         16557    0.000000         0.0       28      9    26       5       0.0      0   
+         
+                xskipid  xsinceskip  
+         16553       99         294  
+         16554       99         295  
+         16555       99         296  
+         16556       99         297  
+         16557       99         298  
+         
+         [5 rows x 1767 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{test\PYZus{}b\PYZus{}preproc}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:}                      time  y\_lead2        x1         x2         x3  \textbackslash{}
+         16558 1999-05-26 09:30:00        0 -0.031064  14.012333  14.305617   
+         16559 1999-05-26 09:32:00        0 -0.085997  14.098046  14.075781   
+         16560 1999-05-26 09:34:00        0 -0.094949  14.188851  14.384268   
+         16561 1999-05-26 09:36:00        0 -0.055040  14.141621  14.379366   
+         16562 1999-05-26 09:38:00        0 -0.074400  14.156380  14.107552   
+         
+                        x4          x5          x6        x7        x8  {\ldots}  \textbackslash{}
+         16558  350.172129  125.340586  320.883250 -3.533673 -3.323706  {\ldots}   
+         16559  349.319956  125.355128  321.094920 -3.533673 -3.323706  {\ldots}   
+         16560  348.635142  125.369685  321.306620 -3.533673 -3.323706  {\ldots}   
+         16561  347.950358  125.384226  322.582530 -3.533673 -3.323706  {\ldots}   
+         16562  347.265543  125.398783  321.980265 -3.533673 -3.323706  {\ldots}   
+         
+                x60\_df2\_l3  x61\_df2\_l3  xminute  xhour  xday  xmonth  xtimedif  xskip  \textbackslash{}
+         16558         NaN         NaN       30      9    26       5       NaN      0   
+         16559         NaN         NaN       32      9    26       5       0.0      0   
+         16560         NaN         NaN       34      9    26       5       0.0      0   
+         16561         NaN         NaN       36      9    26       5       0.0      0   
+         16562         NaN         NaN       38      9    26       5       0.0      0   
+         
+                xskipid  xsinceskip  
+         16558        1           1  
+         16559        1           2  
+         16560        1           3  
+         16561        1           4  
+         16562        1           5  
+         
+         [5 rows x 1767 columns]
+\end{Verbatim}
+            
+    Write to file
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{train\PYZus{}b\PYZus{}preproc}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{n}{preproc\PYZus{}dir}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train\PYZus{}b\PYZus{}preproc1.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{test\PYZus{}b\PYZus{}preproc}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{n}{preproc\PYZus{}dir}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test\PYZus{}b\PYZus{}preproc1.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{test\PYZus{}b\PYZus{}preproc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}lead2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} 11
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{train\PYZus{}b\PYZus{}preproc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}lead2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} 113
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{test\PYZus{}b\PYZus{}preproc}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} (1840, 1767)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{train\PYZus{}b\PYZus{}preproc}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} (16558, 1767)
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
